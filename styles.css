@@ -50,3 +50,31 @@ body {
   align-items: center;
   justify-content: end;
 }
+
+#calculator-input-container {
+  background-color: aliceblue;
+  padding: 1vh;
+
+  border: 2px solid rgb(17, 60, 98);
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.calculator-input-row {
+  display: flex;
+  gap: 1vh;
+}
+
+.input {
+  flex: 1;
+
+  background-color: aliceblue;
+  color: rgb(17, 60, 98);
+  border: 2px solid rgb(17, 60, 98);
+  border-radius: 16px;
+  font-size: x-large;
+  padding: 0.5em 0;
+}
