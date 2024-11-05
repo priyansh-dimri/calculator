@@ -78,3 +78,7 @@ body {
   font-size: x-large;
   padding: 0.5em 0;
 }
+
+#zero {
+  flex: 2;
+}
