@@ -19,3 +19,24 @@ const operate = (num1, num2, operator) => {
       return "ERROR";
   }
 };
+
+const inputButtons = document.querySelectorAll('.input');
+const calculatorDisplay = document.querySelector('#calculator-display');
+
+const modifyCalculatorDisplay = (toDisplay) => {
+  calculatorDisplay.textContent = toDisplay;
+}
+
+const handleButtonClick = (buttonId) => {
+  switch(buttonId) {
+    case 'ac':
+      modifyCalculatorDisplay('');
+      break;
+  }
+}
+
+inputButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    handleButtonClick(button.id);
+  })
+})
