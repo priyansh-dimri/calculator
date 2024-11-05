@@ -13,6 +13,7 @@ body {
 }
 
 #calculator-title {
+  color: rgb(64, 125, 180);
   text-align: center;
   margin: 2vh;
 }
