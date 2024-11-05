@@ -17,3 +17,36 @@ body {
   text-align: center;
   margin: 2vh;
 }
+
+#calculator {
+  background-color: rgb(64, 125, 180);
+
+  text-align: center;
+  width: 32vw;
+
+  margin: 4vh auto;
+  padding: 1vh;
+
+  border: 2px solid rgb(17, 60, 98);
+  border-radius: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+#calculator-display {
+  flex: 0 0 1.5em;
+
+  background-color: aliceblue;
+
+  font-size: xx-large;
+  padding: 0 0.5em;
+
+  border: 2px solid rgb(17, 60, 98);
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
