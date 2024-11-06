@@ -3,7 +3,20 @@ const subtract = (num1, num2) => num1 - num2;
 const multiply = (num1, num2) => num1 * num2;
 const divide = (num1, num2) => num1 / num2;
 
-let num1, num2, operator;
+let num1, num2, operator, number_to_be_added = 1;
+
+const numeric_button_values = {
+  'zero': 0,
+  'one': 1,
+  'two': 2,
+  'three': 3,
+  'four': 4,
+  'five': 5,
+  'six': 6,
+  'seven': 7,
+  'eight': 8,
+  'nine': 9,
+};
 
 const operate = (num1, num2, operator) => {
   switch (operator) {
