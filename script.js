@@ -61,11 +61,13 @@ const calculatorDisplay = document.querySelector('#calculator-display');
 
 const modifyCurrentNumber = (toBeAdded) => {
   if(number_to_be_added === 1){
+    if(num1 && exceedsDecimalLimit(num1)) return;
     if(!num1) num1 = "";
     num1 += toBeAdded;
     modifyCalculatorDisplay(num1);
   }
   else{
+    if(num2 && exceedsDecimalLimit(num2)) return;
     if(!num2) num2 = "";
     num2 += toBeAdded;
     modifyCalculatorDisplay(num2);
@@ -90,7 +92,7 @@ const addDecimalToCurrentNumber = () => {
 const exceedsDecimalLimit = (toDisplay) => {
   if(!toDisplay.includes('.')) return false;
 
-  if(toDisplay.split('.')[1].length > 5) return true;
+  if(toDisplay.split('.')[1].length > 4) return true;
   return false;
 }
 
