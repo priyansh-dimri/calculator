@@ -60,8 +60,16 @@ const modifyCurrentNumber = (toBeAdded) => {
   }
 }
 
+const roundDisplayNumber = (toDisplay) => {
+  if(isNaN(toDisplay)) return toDisplay;
+  let display_string = toDisplay.toString();
+
+  if(!display_string.includes('.')) return toDisplay;
+  return toDisplay.toFixed(5);
+}
+
 const modifyCalculatorDisplay = (toDisplay) => {
-  calculatorDisplay.textContent = toDisplay;
+  calculatorDisplay.textContent = roundDisplayNumber(toDisplay);
 }
 
 const inputsValid = () => {
