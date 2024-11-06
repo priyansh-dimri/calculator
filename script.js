@@ -119,6 +119,13 @@ const inputsValid = () => {
   return (num1 !== undefined) && (num2 !== undefined) && (operator !== undefined);
 }
 
+const handleAllClearClick = () => {
+  num1 = num2 = operator = undefined;
+  number_to_be_added = 1;
+
+  modifyCalculatorDisplay('');
+}
+
 const handleBackspaceClick = () => {
   if(number_to_be_added === 1){
     if(num1) {
@@ -179,22 +186,12 @@ const handleOperatorClick = (operator_clicked) => {
 }
 
 const handleButtonClick = (buttonId) => {
-  if(buttonId === 'ac') {
-    num1 = num2 = operator = undefined;
-    number_to_be_added = 1;
-
-    modifyCalculatorDisplay('');
-  }
+  if(buttonId === 'ac') handleAllClearClick();
   else if(buttonId === 'decimal') addDecimalToCurrentNumber();
   else if(buttonId === 'backspace') handleBackspaceClick();
   else if(buttonId === 'equals') handleEqualsClick();
-  else if(buttonId in numeric_button_values) {
-    let number_pressed = numeric_button_values[buttonId];
-    modifyCurrentNumber(number_pressed);
-  }
-  else if(buttonId in operator_button_values) {
-    handleOperatorClick(operator_button_values[buttonId]);
-  }
+  else if(buttonId in numeric_button_values) modifyCurrentNumber(numeric_button_values[buttonId]);
+  else if(buttonId in operator_button_values) handleOperatorClick(operator_button_values[buttonId]);
 }
 
 inputButtons.forEach((button) => {
@@ -207,19 +204,9 @@ inputButtons.forEach((button) => {
 document.addEventListener("keydown", (e) => {
   let pressed_key = e.key;
 
-  if(pressed_key !== ' ' && !isNaN(pressed_key)){ 
-    modifyCurrentNumber(pressed_key);
-  }
-  else if(pressed_key === 'Backspace') {
-    handleBackspaceClick();
-  }
-  else if(pressed_key === 'Enter') {
-    handleEqualsClick();
-  }
-  else if(pressed_key === '.') {
-    addDecimalToCurrentNumber();
-  }
-  else if(supported_operators.includes(pressed_key)) {
-    handleOperatorClick(pressed_key);
-  }
+  if(pressed_key !== ' ' && !isNaN(pressed_key)) modifyCurrentNumber(pressed_key);
+  else if(pressed_key === 'Backspace') handleBackspaceClick();
+  else if(pressed_key === 'Enter') handleEqualsClick();
+  else if(pressed_key === '.') addDecimalToCurrentNumber();
+  else if(supported_operators.includes(pressed_key)) handleOperatorClick(pressed_key);
 })
