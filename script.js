@@ -87,10 +87,17 @@ const addDecimalToCurrentNumber = () => {
   }
 }
 
+const exceedsDecimalLimit = (toDisplay) => {
+  if(!toDisplay.includes('.')) return false;
+
+  if(toDisplay.split('.')[1].length > 5) return true;
+  return false;
+}
+
 const roundDisplayNumber = (toDisplay) => {
   if(isNaN(toDisplay)) return toDisplay;
 
-  if(!toDisplay.includes('.')) return toDisplay;
+  if(!exceedsDecimalLimit(toDisplay)) return toDisplay;
 
   let display_num = Number(toDisplay);
   return display_num.toFixed(5).toString();
