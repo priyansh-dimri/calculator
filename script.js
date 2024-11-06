@@ -43,15 +43,58 @@ const operate = (num1, num2, operator) => {
 const inputButtons = document.querySelectorAll('.input');
 const calculatorDisplay = document.querySelector('#calculator-display');
 
+const modifyCurrentNumber = (toBeAdded) => {
+  if(number_to_be_added === 1){
+    if(!num1) num1 = 0;
+    num1 = (num1 * 10) + toBeAdded;
+    modifyCalculatorDisplay(num1);
+  }
+  else{
+    if(!num2) num2 = 0;
+    num2 = (num2 * 10) + toBeAdded;
+    modifyCalculatorDisplay(num2);
+  }
+}
+
 const modifyCalculatorDisplay = (toDisplay) => {
   calculatorDisplay.textContent = toDisplay;
 }
 
+const inputsValid = () => {
+  return num1 && num2 && operator;
+}
+
 const handleButtonClick = (buttonId) => {
-  switch(buttonId) {
-    case 'ac':
-      modifyCalculatorDisplay('');
-      break;
+  if(buttonId === 'ac') {
+    num1 = num2 = operator = undefined;
+    number_to_be_added = 1;
+
+    modifyCalculatorDisplay('');
+  }
+  else if(buttonId === 'equals') {
+    if(inputsValid()) {
+      let result = operate(num1, num2, operator);
+      modifyCalculatorDisplay(result);
+
+      num1 = result;
+      num2 = operator = undefined;
+    }
+  }
+  else if(buttonId in numeric_button_values) {
+    let number_pressed = numeric_button_values[buttonId];
+    modifyCurrentNumber(number_pressed);
+  }
+  else if(buttonId in operator_button_values) {
+    if(inputsValid()) {
+      let result = operate(num1, num2, operator);
+      modifyCalculatorDisplay(result);
+      
+      num1 = result;
+      num2 = undefined;
+    }
+    
+    operator = operator_button_values[buttonId];
+    number_to_be_added = 2;
   }
 }
 
