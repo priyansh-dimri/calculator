@@ -7,19 +7,19 @@ const divide = (num1, num2) => {
   return num1 / num2;
 };
 
-let num1, num2, operator, number_to_be_added = 1;
+let num1 , num2 , operator, number_to_be_added = 1;
 
 const numeric_button_values = {
-  'zero': 0,
-  'one': 1,
-  'two': 2,
-  'three': 3,
-  'four': 4,
-  'five': 5,
-  'six': 6,
-  'seven': 7,
-  'eight': 8,
-  'nine': 9,
+  'zero': '0',
+  'one': '1',
+  'two': '2',
+  'three': '3',
+  'four': '4',
+  'five': '5',
+  'six': '6',
+  'seven': '7',
+  'eight': '8',
+  'nine': '9',
 };
 
 const operator_button_values = {
@@ -30,18 +30,30 @@ const operator_button_values = {
 }
 
 const operate = (num1, num2, operator) => {
+  if(isNaN(num1) || isNaN(num2)) return 'LOL';
+  num1 = Number(num1);
+  num2 = Number(num2);
+
+  let result;
+
   switch (operator) {
     case "+":
-      return add(num1, num2);
+      result = add(num1, num2);
+      break;
     case "-":
-      return subtract(num1, num2);
+      result = subtract(num1, num2);
+      break;
     case "*":
-      return multiply(num1, num2);
+      result = multiply(num1, num2);
+      break;
     case "/":
-      return divide(num1, num2);
+      result = divide(num1, num2);
+      break;
     default:
-      return "ERROR";
+      result = "ERROR";
   }
+
+  return result.toString();
 };
 
 const inputButtons = document.querySelectorAll('.input');
@@ -49,23 +61,24 @@ const calculatorDisplay = document.querySelector('#calculator-display');
 
 const modifyCurrentNumber = (toBeAdded) => {
   if(number_to_be_added === 1){
-    if(!num1) num1 = 0;
-    num1 = (num1 * 10) + toBeAdded;
+    if(!num1) num1 = "";
+    num1 += toBeAdded;
     modifyCalculatorDisplay(num1);
   }
   else{
-    if(!num2) num2 = 0;
-    num2 = (num2 * 10) + toBeAdded;
+    if(!num2) num2 = "";
+    num2 += toBeAdded;
     modifyCalculatorDisplay(num2);
   }
 }
 
 const roundDisplayNumber = (toDisplay) => {
   if(isNaN(toDisplay)) return toDisplay;
-  let display_string = toDisplay.toString();
 
-  if(!display_string.includes('.')) return toDisplay;
-  return toDisplay.toFixed(5);
+  if(!toDisplay.includes('.')) return toDisplay;
+
+  let display_num = Number(toDisplay);
+  return display_num.toFixed(5).toString();
 }
 
 const modifyCalculatorDisplay = (toDisplay) => {
