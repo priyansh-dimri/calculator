@@ -113,6 +113,27 @@ const inputsValid = () => {
   return (num1 !== undefined) && (num2 !== undefined) && (operator !== undefined);
 }
 
+const handleBackspaceClick = () => {
+  if(number_to_be_added === 1){
+    if(num1) {
+      num1 = num1.slice(0, -1);
+      modifyCalculatorDisplay(num1);
+    }
+  }
+  else{
+    if(num2) {
+      num2 = num2.slice(0, -1);
+      if(num2 === "") num2 = undefined;
+      modifyCalculatorDisplay(num2);
+    }
+    else {
+      operator = undefined;
+      number_to_be_added = 1;
+      modifyCalculatorDisplay(num1);
+    }
+  }
+}
+
 const handleButtonClick = (buttonId) => {
   if(buttonId === 'ac') {
     num1 = num2 = operator = undefined;
@@ -121,6 +142,7 @@ const handleButtonClick = (buttonId) => {
     modifyCalculatorDisplay('');
   }
   else if(buttonId === 'decimal') addDecimalToCurrentNumber();
+  else if(buttonId === 'backspace') handleBackspaceClick();
   else if(buttonId === 'equals') {
     if(inputsValid()) {
       let result = operate(num1, num2, operator);
