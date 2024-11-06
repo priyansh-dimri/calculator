@@ -18,6 +18,13 @@ const numeric_button_values = {
   'nine': 9,
 };
 
+const operator_button_values = {
+  'add': '+',
+  'subtract': '-',
+  'multiply': '*',
+  'divide': '/',
+}
+
 const operate = (num1, num2, operator) => {
   switch (operator) {
     case "+":
