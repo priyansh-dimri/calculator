@@ -1,7 +1,11 @@
 const add = (num1, num2) => num1 + num2;
 const subtract = (num1, num2) => num1 - num2;
 const multiply = (num1, num2) => num1 * num2;
-const divide = (num1, num2) => num1 / num2;
+const divide = (num1, num2) => {
+  console.log(num2);
+  if(num2 === 0) return 'LOL';
+  return num1 / num2;
+};
 
 let num1, num2, operator, number_to_be_added = 1;
 
@@ -61,7 +65,7 @@ const modifyCalculatorDisplay = (toDisplay) => {
 }
 
 const inputsValid = () => {
-  return num1 && num2 && operator;
+  return (num1 !== undefined) && (num2 !== undefined) && (operator !== undefined);
 }
 
 const handleButtonClick = (buttonId) => {
@@ -76,7 +80,11 @@ const handleButtonClick = (buttonId) => {
       let result = operate(num1, num2, operator);
       modifyCalculatorDisplay(result);
 
-      num1 = result;
+      if(result === 'LOL') {
+        num1 = undefined;
+        number_to_be_added = 1;
+      }
+
       num2 = operator = undefined;
     }
   }
@@ -88,13 +96,21 @@ const handleButtonClick = (buttonId) => {
     if(inputsValid()) {
       let result = operate(num1, num2, operator);
       modifyCalculatorDisplay(result);
+
+      if(result === 'LOL') {
+        num1 = num2 = operator = undefined;
+        number_to_be_added = 1;
+        return;
+      }
       
       num1 = result;
       num2 = undefined;
     }
-    
-    operator = operator_button_values[buttonId];
-    number_to_be_added = 2;
+
+    if(num1 !== undefined){
+      operator = operator_button_values[buttonId];
+      number_to_be_added = 2;
+    }
   }
 }
 
