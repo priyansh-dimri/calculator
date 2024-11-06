@@ -103,13 +103,12 @@ const handleButtonClick = (buttonId) => {
 
       if(result === 'LOL') {
         num1 = undefined;
-        number_to_be_added = 1;
       }
       else {
         num1 = result;
-        number_to_be_added = 2;
       }
 
+      number_to_be_added = 1;
       num2 = operator = undefined;
     }
   }
