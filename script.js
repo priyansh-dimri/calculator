@@ -1,11 +1,3 @@
-const add = (num1, num2) => num1 + num2;
-const subtract = (num1, num2) => num1 - num2;
-const multiply = (num1, num2) => num1 * num2;
-const divide = (num1, num2) => {
-  if (num2 === 0) return "LOL";
-  return num1 / num2;
-};
-
 let num1,
   num2,
   operator,
@@ -35,6 +27,14 @@ const operator_button_values = {
 
 // Array of supported operators of the calculator
 const supported_operators = ["+", "-", "*", "/"];
+  
+const add = (num1, num2) => num1 + num2;
+const subtract = (num1, num2) => num1 - num2;
+const multiply = (num1, num2) => num1 * num2;
+const divide = (num1, num2) => {
+  if (num2 === 0) return "LOL";
+  return num1 / num2;
+};
 
 const operate = (num1, num2, operator) => {
   if (isNaN(num1) || isNaN(num2)) return "LOL";
@@ -66,18 +66,24 @@ const operate = (num1, num2, operator) => {
 const inputButtons = document.querySelectorAll(".input");
 const calculatorDisplay = document.querySelector("#calculator-display");
 
-const modifyCurrentNumber = (toBeAdded) => {
-  if (number_to_be_added === 1) {
-    if (num1 && exceedsDecimalLimit(num1)) return;
-    if (!num1) num1 = "";
-    num1 += toBeAdded;
-    modifyCalculatorDisplay(num1);
-  } else {
-    if (num2 && exceedsDecimalLimit(num2)) return;
-    if (!num2) num2 = "";
-    num2 += toBeAdded;
-    modifyCalculatorDisplay(num2);
-  }
+const roundDisplayNumber = (toDisplay) => {
+  if (isNaN(toDisplay)) return toDisplay;
+
+  if (!exceedsDecimalLimit(toDisplay)) return toDisplay;
+
+  let display_num = Number(toDisplay);
+  return display_num.toFixed(5).toString();
+};
+
+const modifyCalculatorDisplay = (toDisplay) => {
+  calculatorDisplay.textContent = roundDisplayNumber(toDisplay);
+};
+
+const handleAllClearClick = () => {
+  num1 = num2 = operator = undefined;
+  number_to_be_added = 1;
+
+  modifyCalculatorDisplay("");
 };
 
 const addDecimalToCurrentNumber = () => {
@@ -92,37 +98,6 @@ const addDecimalToCurrentNumber = () => {
     num2 += ".";
     modifyCalculatorDisplay(num2);
   }
-};
-
-const exceedsDecimalLimit = (toDisplay) => {
-  if (!toDisplay.includes(".")) return false;
-
-  if (toDisplay.split(".")[1].length > 4) return true;
-  return false;
-};
-
-const roundDisplayNumber = (toDisplay) => {
-  if (isNaN(toDisplay)) return toDisplay;
-
-  if (!exceedsDecimalLimit(toDisplay)) return toDisplay;
-
-  let display_num = Number(toDisplay);
-  return display_num.toFixed(5).toString();
-};
-
-const modifyCalculatorDisplay = (toDisplay) => {
-  calculatorDisplay.textContent = roundDisplayNumber(toDisplay);
-};
-
-const inputsValid = () => {
-  return num1 !== undefined && num2 !== undefined && operator !== undefined;
-};
-
-const handleAllClearClick = () => {
-  num1 = num2 = operator = undefined;
-  number_to_be_added = 1;
-
-  modifyCalculatorDisplay("");
 };
 
 const handleBackspaceClick = () => {
@@ -144,6 +119,10 @@ const handleBackspaceClick = () => {
   }
 };
 
+const inputsValid = () => {
+  return num1 !== undefined && num2 !== undefined && operator !== undefined;
+};
+
 const handleEqualsClick = () => {
   if (inputsValid()) {
     let result = operate(num1, num2, operator);
@@ -157,6 +136,27 @@ const handleEqualsClick = () => {
 
     number_to_be_added = 1;
     num2 = operator = undefined;
+  }
+};
+
+const exceedsDecimalLimit = (toDisplay) => {
+  if (!toDisplay.includes(".")) return false;
+
+  if (toDisplay.split(".")[1].length > 4) return true;
+  return false;
+};
+
+const modifyCurrentNumber = (toBeAdded) => {
+  if (number_to_be_added === 1) {
+    if (num1 && exceedsDecimalLimit(num1)) return;
+    if (!num1) num1 = "";
+    num1 += toBeAdded;
+    modifyCalculatorDisplay(num1);
+  } else {
+    if (num2 && exceedsDecimalLimit(num2)) return;
+    if (!num2) num2 = "";
+    num2 += toBeAdded;
+    modifyCalculatorDisplay(num2);
   }
 };
 
