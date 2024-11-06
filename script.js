@@ -8,6 +8,7 @@ const divide = (num1, num2) => {
 
 let num1 , num2 , operator, number_to_be_added = 1;
 
+// Maps numeric button ids to the value of the button
 const numeric_button_values = {
   'zero': '0',
   'one': '1',
@@ -21,6 +22,7 @@ const numeric_button_values = {
   'nine': '9',
 };
 
+// Maps operator button ids to the character equivalent of the operator
 const operator_button_values = {
   'add': '+',
   'subtract': '-',
@@ -28,6 +30,7 @@ const operator_button_values = {
   'divide': '/',
 }
 
+// Array of supported operators of the calculator
 const supported_operators = [
   '+',
   '-',
