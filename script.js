@@ -72,6 +72,21 @@ const modifyCurrentNumber = (toBeAdded) => {
   }
 }
 
+const addDecimalToCurrentNumber = () => {
+  if(number_to_be_added === 1){
+    if(!num1) num1 = "0";
+    if(num1.includes('.')) return;
+    num1 += '.';
+    modifyCalculatorDisplay(num1);
+  }
+  else{
+    if(!num2) num2 = "0";
+    if(num2.includes('.')) return;
+    num2 += '.';
+    modifyCalculatorDisplay(num2);
+  }
+}
+
 const roundDisplayNumber = (toDisplay) => {
   if(isNaN(toDisplay)) return toDisplay;
 
@@ -96,6 +111,7 @@ const handleButtonClick = (buttonId) => {
 
     modifyCalculatorDisplay('');
   }
+  else if(buttonId === 'decimal') addDecimalToCurrentNumber();
   else if(buttonId === 'equals') {
     if(inputsValid()) {
       let result = operate(num1, num2, operator);
